@@ -16,6 +16,9 @@
     "noEmit": true,
     "jsx": "react"
   },
-  "include": ["./src/**/*", "./*.js", "./.*.js", "./test-config/**/*"],
-  "exclude": ["node_modules"]
+  "include": [
+    "./frontend/src/**/*", "./*.js", "./.*.js", "./test-config/**/*"],
+  "exclude": [
+    "../node_modules"
+  ]
 }

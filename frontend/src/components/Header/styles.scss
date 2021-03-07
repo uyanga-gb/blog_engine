@@ -1,0 +1,46 @@
+.header_container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #d7dddf;
+  background-color: #f0fbff;
+  padding: 11px;
+  margin: 0;
+  height: 80px;
+
+  .blog_logo {
+    color: #003749;
+  }
+
+  .header_buttons_wrapper {
+    display: flex;
+  }
+
+  .sign_in_button {
+    background: #003749;
+    border: 1px solid;
+    border-radius: 10px;
+    text-align: center;
+    line-height: 50px;
+    font-size: 16px;
+    color: #ffffff;
+    font-weight: bold;
+    height: 50px;
+    width: 100px;
+    margin-right: 20px;
+  }
+
+  .create_account_button {
+    background: #00aeef;
+    border: 1px solid;
+    border-radius: 10px;
+    text-align: center;
+    line-height: 50px;
+    font-size: 16px;
+    color: #ffffff;
+    font-weight: bold;
+    height: 50px;
+    width: 170px;
+  }
+}
