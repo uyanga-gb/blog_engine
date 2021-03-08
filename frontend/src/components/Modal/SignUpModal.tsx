@@ -1,19 +1,40 @@
 import React, { FC, useState } from "react"
 import "./styles.scss"
 import { TextField } from "@rmwc/textfield";
+import {connect} from "react-redux";
+import { createNewUser } from "../../actions/user-action-creators"
 
-const SignUpModal: FC = () => {
+export function mapDispatchToProps(dispatch) {
+    return {
+        actions: {
+            handleCreateNewUser(param) {
+                dispatch(createNewUser(param))
+            }
+        }
+    }
+}
+
+const userInputs = {
+    firstname: "",
+    lastname: "",
+    intro: "",
+    username: "",
+    password:  ""
+}
+
+const SignUpModal: FC = ({actions}) => {
+    const [newUser, setNewUser] = useState(userInputs)
 
     const handleSignIn = () => {
+        actions.handleCreateNewUser(newUser)
 
     }
     const updateStateValue = (inputType, value) => {
-        this.setState({
-            userInputs: {
-                ...this.state.userInputs,
-                [inputType]: value
-            }
-        })
+        const updatedUser = {
+            ...newUser,
+            [inputType]: value
+        }
+        setNewUser(updatedUser)
     }
     const handleInputChange = (inputType) => (event) => {
         updateStateValue(inputType, event.target.value)
@@ -36,7 +57,7 @@ const SignUpModal: FC = () => {
                             outlined
                             autoFocus
                             className="login-field"
-                            value={""}
+                            value={newUser.firstname}
                             onChange={handleInputChange("firstname")}
                             id="firstname-field"
                             placeholder={"Jane"}
@@ -45,7 +66,7 @@ const SignUpModal: FC = () => {
                         <TextField
                             outlined
                             className="login-field"
-                            value={""}
+                            value={newUser.lastname}
                             onChange={handleInputChange("lastname")}
                             id="lastname-field"
                             placeholder={"Thomsan"}
@@ -54,7 +75,7 @@ const SignUpModal: FC = () => {
                         <TextField
                             outlined
                             className="intro_field"
-                            value={""}
+                            value={newUser.intro}
                             onChange={handleInputChange("intro")}
                             id="intro-field"
                             placeholder={"I am a software developer who is curious about emerging technologies."}
@@ -63,7 +84,7 @@ const SignUpModal: FC = () => {
                         <TextField
                             outlined
                             className="login-field"
-                            value={""}
+                            value={newUser.username}
                             onChange={handleInputChange("username")}
                             id="username-field"
                             placeholder={"yours@example.com"}
@@ -72,7 +93,7 @@ const SignUpModal: FC = () => {
                         <TextField
                             outlined
                             className="login-field"
-                            value={""}
+                            value={newUser.password}
                             onChange={handleInputChange("password")}
                             id="password-field"
                             placeholder={"your password"}
@@ -81,11 +102,14 @@ const SignUpModal: FC = () => {
                     </form>
                 </div>
                 <div className="modal_footer">
-                    <button className="modal_button">Sign Up</button>
+                    <button className="modal_button" onClick={handleSignIn}>Sign Up</button>
                 </div>
             </div>
         </div>
     )
 }
 
-export default SignUpModal
+export default connect(
+    null,
+    mapDispatchToProps
+)(SignUpModal)

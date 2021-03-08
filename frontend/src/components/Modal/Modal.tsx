@@ -1,19 +1,36 @@
 import React, { FC, useState } from "react"
 import "./styles.scss"
 import { TextField } from "@rmwc/textfield";
+import {loginUser} from "../../actions/user-action-creators";
+import {connect} from "react-redux";
 
-const LoginModal: FC = () => {
+export function mapDispatchToProps(dispatch) {
+    return {
+        actions: {
+            handleUserLogin(param) {
+                dispatch(loginUser(param))
+            }
+        }
+    }
+}
+
+const userInputs = {
+    username: "",
+    password:  ""
+}
+
+const LoginModal: FC = ({actions}) => {
+    const [user, setUser] = useState(userInputs)
 
     const handleSignIn = () => {
-
+        actions.handleUserLogin(user)
     }
     const updateStateValue = (inputType, value) => {
-        this.setState({
-            userInputs: {
-                ...this.state.userInputs,
-                [inputType]: value
-            }
-        })
+        const updatedUser = {
+            ...user,
+            [inputType]: value
+        }
+        setUser(updatedUser)
     }
     const handleInputChange = (inputType) => (event) => {
         updateStateValue(inputType, event.target.value)
@@ -32,7 +49,7 @@ const LoginModal: FC = () => {
                             outlined
                             autoFocus
                             className="login-field"
-                            value={""}
+                            value={user.username}
                             onChange={handleInputChange("username")}
                             id="username-field"
                             placeholder={"yours@example.com"}
@@ -41,7 +58,7 @@ const LoginModal: FC = () => {
                         <TextField
                             outlined
                             className="login-field"
-                            value={""}
+                            value={user.password}
                             onChange={handleInputChange("password")}
                             id="password-field"
                             placeholder={"your password"}
@@ -50,11 +67,14 @@ const LoginModal: FC = () => {
                     </form>
                 </div>
                 <div className="modal_footer">
-                    <button className="modal_button">Log in</button>
+                    <button className="modal_button" onClick={handleSignIn}>Log in</button>
                 </div>
             </div>
         </div>
     )
 }
 
-export default LoginModal
+export default connect(
+    null,
+    mapDispatchToProps
+)(LoginModal)

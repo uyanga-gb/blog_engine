@@ -1,22 +1,9 @@
 import React, { FC, useState } from "react"
 import "./styles.scss"
-import { showModal } from "../../actions/modal-action-creators"
 import { connect } from "react-redux"
-import {Dialog, DialogTitle, DialogContent, DialogActions, DialogButton} from "@rmwc/dialog";
 import Modal from "../Modal/Modal";
 import SignUpModal from "../Modal/SignUpModal";
-const USER_SIGN_IN_MODAL = "USER_SIGN_IN_MODAL"
-const CREATE_ACCOUNT_MODAL = "CREATE_ACCOUNT_MODAL"
 
-export function mapDispatchToProps(dispatch) {
-    return {
-        actions: {
-            showModal(param) {
-                dispatch(showModal(param))
-            }
-        }
-    }
-}
 
 const Header: FC = () => {
     const [modalOpen, setModalOpen] = useState(false)
@@ -24,9 +11,9 @@ const Header: FC = () => {
 
     const handleModalType = (modalType) => {
         if (modalType === "signIn") {
-            setCurrentModal(<SignUpModal />)
+            setCurrentModal(<Modal />)
         } else if (modalType === "createAccount") {
-            setCurrentModal(<Modal  />)
+            setCurrentModal(<SignUpModal  />)
         }
     }
 
@@ -50,7 +37,4 @@ const Header: FC = () => {
     )
 }
 
-export default connect(
-    null,
-    mapDispatchToProps
-)(Header)
+export default Header

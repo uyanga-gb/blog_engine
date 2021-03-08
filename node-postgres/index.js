@@ -57,13 +57,35 @@ app.use(express.json());
 // CORS implemented so that we don't get errors when trying to access the server from a different server location
 app.use(cors());
 
-// GET: Fetch all movies from the database
 app.get('/', (req, res) => {
   db.select('*')
     .from('blog_user')
     .then((data) => {
       console.log(data);
       res.json(data);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
+
+app.post('/newUser', (req, res) => {
+  const { firstname, lastname, intro, username, password} = req.body
+  db('blog_user')
+    .insert({
+      firstname: firstname,
+      lastname: lastname,
+      email: username,
+      passwordhash: password,
+      createdat: new Date(),
+      updatedat: new Date(),
+      lastlogin: new Date(),
+      intro: intro,
+      profile: "new profile"
+    })
+    .then(() => {
+      console.log('new user created');
+      return res.json({msg: "User added"});
     })
     .catch((err) => {
       console.log(err);
