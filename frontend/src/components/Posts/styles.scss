@@ -1,0 +1,50 @@
+.posts_container {
+  display: flex;
+  flex-direction: row;
+  align-content: space-between;
+  justify-content: space-around;
+  padding: 50px;
+}
+
+.post_prev_card {
+  overflow: hidden;
+  width: 323px;
+  max-height: 460px;
+  text-align: left;
+  border-radius: 15px;
+  border: 0.5px solid #d9d2cc;
+  box-sizing: border-box;
+  background: #ffffff;
+  cursor: pointer;
+
+  .post_prev_image {
+    height: 170px;
+    margin: auto;
+    img {
+      height: 180px;
+    }
+  }
+
+  .post_prev_body {
+    display: flex;
+    flex-direction: column;
+    padding: 5px 20px 5px 20px;
+    align-content: center;
+
+    .post_prev_info {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: flex-start;
+      text-transform: capitalize;
+      font-size: 12px;
+    }
+    .author_avator {
+      height: 40px;
+      width: 40px;
+      border-radius: 100%;
+      margin-right: 20px;
+    }
+
+  }
+}

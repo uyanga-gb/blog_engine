@@ -1,0 +1,68 @@
+.modal {
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-content: space-evenly;
+  align-items: center;
+  justify-content: center;
+}
+.modal.sign_up_modal {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+
+  .terms_condition {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    height: 545px;
+    background-color: white;
+    border: 1px solid #d9d2cc;
+    border-radius: 10px;
+    padding: 40px;
+  }
+  .intro_field input {
+    height: 200px;
+    text-align: left;
+  }
+}
+.modal_content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+  width: 300px;
+  text-align: left;
+  background-color: white;
+  border: 1px solid #d9d2cc;
+  border-radius: 10px;
+}
+
+.modal_button {
+  background: #00aeef;
+  border: 1px solid;
+  border-radius: 10px;
+  text-align: center;
+  font-size: 16px;
+  color: #ffffff;
+  font-weight: bold;
+  height: 40px;
+  width: 150px;
+}
+
+.login-field {
+  margin-bottom: 16px;
+}
+
+label {
+  text-transform: uppercase;
+  font-size: 12px;
+  font-family: "Helvetica";
+  font-weight: normal;
+  color: gray;
+}
