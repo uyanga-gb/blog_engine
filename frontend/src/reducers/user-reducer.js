@@ -5,15 +5,15 @@ import createReducer from "../utils/redux/create-reducer";
 
 
 export const initialState = {
- username: "",
-  password: ""
+ username: ""
 }
 
 const userReducers = {
-  [USER_LOGIN](state, {signedInUser}) {
+  [USER_LOGIN](state, {payload}) {
+    console.log(payload)
     return {
       ...state,
-      user: signedInUser
+      username: payload.username
     }
   }
 }

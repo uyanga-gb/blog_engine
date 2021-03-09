@@ -1,39 +1,4 @@
-// const blog_model = require('./blog_model')
-// const cors = require('cors');
-// const express = require('express')
-// const app = express()
-// const port = 3001
-//
-// app.get('/', (req, res) => {
-//   res.status(200).send('Hello World!');
-// })
-//
-// app.use(express.json())
-// app.use(cors());
-// // app.use(function (req, res, next) {
-// //   res.setHeader('Access-Control-Allow-Origin', 'http://localhost:9000');
-// //   res.setHeader('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE,OPTIONS');
-// //   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Access-Control-Allow-Headers');
-// //   next();
-// // });
-//
-// app.get('/', (req, res) => {
-//   blog_model.getUsers()
-//     .then(response => {
-//       debugger
-//       res.status(200).send(response);
-//     })
-//     .catch(error => {
-//       res.status(500).send(error);
-//     })
-// })
-//
-//
-// app.listen(port, () => {
-//   console.log(`App running on port ${port}.`)
-// })
-
-
+const blog_model = require('./blog_model')
 const express = require('express');
 const cors = require('cors');
 const knex = require('knex');
@@ -58,8 +23,7 @@ app.use(express.json());
 app.use(cors());
 
 app.get('/', (req, res) => {
-  db.select('*')
-    .from('blog_user')
+  blog_model.getUsers()
     .then((data) => {
       console.log(data);
       res.json(data);
@@ -69,23 +33,22 @@ app.get('/', (req, res) => {
     });
 });
 
-app.post('/newUser', (req, res) => {
-  const { firstname, lastname, intro, username, password} = req.body
-  db('blog_user')
-    .insert({
-      firstname: firstname,
-      lastname: lastname,
-      email: username,
-      passwordhash: password,
-      createdat: new Date(),
-      updatedat: new Date(),
-      lastlogin: new Date(),
-      intro: intro,
-      profile: "new profile"
-    })
+app.post('/register', (req, res) => {
+  blog_model.addNewUser(req.body)
     .then(() => {
       console.log('new user created');
       return res.json({msg: "User added"});
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
+
+app.get('/userlogin', (req, res) => {
+  blog_model.getUserByLogin(req.body)
+    .then((data) => {
+      console.log('login ', data);
+      res.json(data);
     })
     .catch((err) => {
       console.log(err);

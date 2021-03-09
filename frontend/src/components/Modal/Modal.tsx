@@ -19,12 +19,18 @@ const userInputs = {
     password:  ""
 }
 
-const LoginModal: FC = ({actions}) => {
+type Props = {
+    handleModalShow: () => void
+}
+
+const LoginModal: FC<Props> = ({handleModalShow, actions}) => {
     const [user, setUser] = useState(userInputs)
 
     const handleSignIn = () => {
         actions.handleUserLogin(user)
+        handleModalShow()
     }
+
     const updateStateValue = (inputType, value) => {
         const updatedUser = {
             ...user,
@@ -32,6 +38,7 @@ const LoginModal: FC = ({actions}) => {
         }
         setUser(updatedUser)
     }
+
     const handleInputChange = (inputType) => (event) => {
         updateStateValue(inputType, event.target.value)
     }

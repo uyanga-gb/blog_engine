@@ -7,7 +7,7 @@ import {
 
 export const createNewUser = (newUser) => (dispatch, getState) => {
 
-   fetch('http://localhost:3001/newUser', {
+   fetch('http://localhost:3001/register', {
        method: 'POST',
        headers: {
            'content-type': 'application/json',
@@ -16,25 +16,41 @@ export const createNewUser = (newUser) => (dispatch, getState) => {
        body: JSON.stringify(newUser)
    })
     .then(response => {
-      return response.text();
+      return response.status;
     })
-    .then(user => {
-      dispatch({
-          type: USER_LOGIN,
-          payload: user
-      })
+    .then(status => {
+        console.log('status', status)
+        if(status === 200) {
+            dispatch({
+                type: USER_LOGIN,
+                payload: newUser
+            })
+        }
     });
   }
 
-export const loginUser = ({       username,
-                                  password
-                              }) => (dispatch, getState) => {
-
-    fetch('http://localhost:3001')
+export const loginUser = (user) => (dispatch, getState) => {
+    fetch('http://localhost:3001/userlogin', {
+        method: 'POST',
+        headers: {
+            'content-type': 'application/json',
+            'Accept': 'application/json'
+        },
+        body: JSON.stringify(user)
+    })
         .then(response => {
-            return response.text();
+            console.log('login response', response)
+            return response.status;
         })
-        .then(data => {
-            console.log('I am getting data from my local server', data)
+        .then(status => {
+            console.log('login response data ', status)
+            if(status === 404) {
+                return "Not found"
+            } else if(status === 200) {
+                dispatch({
+                    type: USER_LOGIN,
+                    payload: user
+                })
+            }
         });
 }

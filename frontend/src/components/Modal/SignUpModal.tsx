@@ -22,13 +22,28 @@ const userInputs = {
     password:  ""
 }
 
-const SignUpModal: FC = ({actions}) => {
+function isValidInput(userInput) {
+    return userInput.firstname.length &&
+        userInput.lastname.length &&
+        userInput.username.length &&
+        userInput.password.length
+}
+
+type Props = {
+    handleNewPostModal: (username: string) => void
+}
+const SignUpModal: FC<Props> = ({handleNewPostModal, actions}) => {
     const [newUser, setNewUser] = useState(userInputs)
 
     const handleSignIn = () => {
-        actions.handleCreateNewUser(newUser)
-
+        // if(isValidInput(newUser)) {
+            // actions.handleCreateNewUser(newUser)
+            handleNewPostModal(newUser.username)
+        // } else {
+        //     return
+        // }
     }
+
     const updateStateValue = (inputType, value) => {
         const updatedUser = {
             ...newUser,
@@ -54,34 +69,47 @@ const SignUpModal: FC = ({actions}) => {
                     <form onSubmit={handleSignIn}>
                         <label htmlFor="username-field">First Name</label>
                         <TextField
+                            required
+                            pattern="[A-Za-z]{3}"
                             outlined
                             autoFocus
                             className="login-field"
                             value={newUser.firstname}
                             onChange={handleInputChange("firstname")}
                             id="firstname-field"
-                            placeholder={"Jane"}
+                            placeholder={"Your first name"}
                         />
                         <label htmlFor="username-field">Last Name</label>
                         <TextField
+                            required
+                            pattern="[A-Za-z]{3}"
                             outlined
                             className="login-field"
                             value={newUser.lastname}
                             onChange={handleInputChange("lastname")}
                             id="lastname-field"
-                            placeholder={"Thomsan"}
+                            placeholder={"Your last name"}
                         />
                         <label htmlFor="username-field">Introduction</label>
                         <TextField
+                            textarea
                             outlined
                             className="intro_field"
                             value={newUser.intro}
+                            maxLength={250}
+                            characterCount
                             onChange={handleInputChange("intro")}
                             id="intro-field"
-                            placeholder={"I am a software developer who is curious about emerging technologies."}
+                            placeholder={"Anything you want to say about yourself to others."}
+                            helpText={{
+                                persistent: true,
+                                validationMsg: true,
+                                children: 'The field is required'
+                            }}
                         />
                         <label htmlFor="username-field">Username</label>
                         <TextField
+                            required
                             outlined
                             className="login-field"
                             value={newUser.username}
@@ -91,6 +119,7 @@ const SignUpModal: FC = ({actions}) => {
                         />
                         <label htmlFor="password-field">Password</label>
                         <TextField
+                            required
                             outlined
                             className="login-field"
                             value={newUser.password}

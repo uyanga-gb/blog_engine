@@ -3,17 +3,26 @@ import "./styles.scss"
 import { connect } from "react-redux"
 import Modal from "../Modal/Modal";
 import SignUpModal from "../Modal/SignUpModal";
+import NewPost from "../Posts/NewPost";
 
 
 const Header: FC = () => {
     const [modalOpen, setModalOpen] = useState(false)
+    const [newPostOpen, setNewPostOpen] = useState(false)
     const [currentModal, setCurrentModal] = useState(null)
+    const [loggedUser, setLoggedUser] = useState(null)
+
+    const showNewPost = (username) => {
+        setModalOpen(false)
+        setNewPostOpen(true)
+        setLoggedUser(username)
+    }
 
     const handleModalType = (modalType) => {
         if (modalType === "signIn") {
-            setCurrentModal(<Modal />)
+            setCurrentModal(<Modal handleModalShow={() => setModalOpen(false)}/>)
         } else if (modalType === "createAccount") {
-            setCurrentModal(<SignUpModal  />)
+            setCurrentModal(<SignUpModal handleNewPostModal={showNewPost} />)
         }
     }
 
@@ -33,6 +42,7 @@ const Header: FC = () => {
             </div>
         </div>
             {modalOpen && currentModal}
+            {newPostOpen && <NewPost authorUserName={loggedUser}/>}
         </div>
     )
 }

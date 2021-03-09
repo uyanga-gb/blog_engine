@@ -50,3 +50,39 @@
 
   }
 }
+
+.new_post_container {
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-content: space-evenly;
+  align-items: center;
+  justify-content: center;
+
+  .new_post_content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+    width: 80%;
+    height: 70%;
+    text-align: left;
+    background-color: white;
+    border: 1px solid #d9d2cc;
+    border-radius: 10px;
+  }
+
+  .post_content {
+    height: fit-content;
+    textarea {
+      height: 550px;
+      width: 600px;
+    }
+    text-align: left;
+  }
+}
