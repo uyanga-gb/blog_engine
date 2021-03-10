@@ -1,6 +1,6 @@
-import React, { FC, useState } from "react"
+import React, {FC, useEffect, useState} from "react"
 import "./styles.scss"
-import { getPosts } from "../../actions/post-action-creators"
+import {getAllPosts} from "../../actions/post-action-creators"
 import PostPreviewCard from "./PostPreviewCard";
 import {connect} from "react-redux";
 
@@ -17,43 +17,35 @@ export function mapDispatchToProps(dispatch) {
     return {
         actions: {
             getPosts() {
-                dispatch(getPosts())
+                dispatch(getAllPosts())
             }
         }
     }
 }
-const mapStateToProps = () => {
-
-    const posts: PostPreviewType[] = [
-        {authorName: "Uyanga",
-            authorAvatar: "gagaga",
-            publishDate: "March 1, 2021",
-            title: "test",
-            postPreviewImg: "img",
-            description: "This post is my description This post is my description This post is my description This post is my description"},
-        {authorName: "Uyanga",
-            authorAvatar: "gagaga",
-            publishDate: "March 5, 2021",
-            title: "test",
-            postPreviewImg: "img",
-            description: "This post is my descriptionThis post is my description This post is my description This post is my description " }]
+const mapStateToProps = (state) => {
+    const { post } = state
 
     return {
-        posts
+        posts: post.posts || []
     }
 }
 
 const Posts: FC = ({posts, actions}) => {
+
+    useEffect(() => {
+        actions.getPosts()
+    }, [])
+
     return (
         <div className='posts_container'>
-            {posts.map((post, idx) => {
+            {posts.map((post) => {
                 return <PostPreviewCard
-                    key={idx}
-                    authorName={post.authorName}
+                    key={post.id}
+                    authorName={`${post.authorfirstname} ${post.authorlastname}`}
                     authorAvatar={post.authorAvatar}
-                    publishDate={post.publishDate}
+                    publishDate={post.publishedat}
                     title={post.title}
-                    description={post.description}
+                    description={post.postcontent}
                     postPreviewImg={post.postPreviewImg}
                     handleLoadPost={actions.loadPost}
                 />

@@ -14,7 +14,6 @@ const Header: FC = () => {
 
     const showNewPost = (username) => {
         setModalOpen(false)
-        setNewPostOpen(true)
         setLoggedUser(username)
     }
 
@@ -37,12 +36,13 @@ const Header: FC = () => {
         <div className="header_container">
             <h2 className="blog_logo">Blog engine</h2>
             <div className="header_buttons_wrapper">
-                <div className="create_account_button" onClick={() => showModal("createAccount")}>Create Account</div>
-                <div className="sign_in_button" onClick={() => showModal("signIn")}>Sign In</div>
+                {loggedUser && <div className="header_button new_post" onClick={() => setNewPostOpen(true)}>New Post</div>}
+                <div className="header_button create_account_button" onClick={() => showModal("createAccount")}>Create Account</div>
+                <div className="header_button sign_in_button" onClick={() => showModal("signIn")}>Sign In</div>
             </div>
         </div>
             {modalOpen && currentModal}
-            {newPostOpen && <NewPost authorUserName={loggedUser}/>}
+            {newPostOpen && <NewPost authorUserName={loggedUser} handleShowModal={() => setNewPostOpen(false)}/>}
         </div>
     )
 }

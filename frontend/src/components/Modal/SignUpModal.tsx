@@ -3,6 +3,7 @@ import "./styles.scss"
 import { TextField } from "@rmwc/textfield";
 import {connect} from "react-redux";
 import { createNewUser } from "../../actions/user-action-creators"
+import { User} from "../../types/types";
 
 export function mapDispatchToProps(dispatch) {
     return {
@@ -14,7 +15,7 @@ export function mapDispatchToProps(dispatch) {
     }
 }
 
-const userInputs = {
+const userInputs: User = {
     firstname: "",
     lastname: "",
     intro: "",
@@ -22,7 +23,7 @@ const userInputs = {
     password:  ""
 }
 
-function isValidInput(userInput) {
+function isValidInput(userInput: User) {
     return userInput.firstname.length &&
         userInput.lastname.length &&
         userInput.username.length &&
@@ -33,15 +34,15 @@ type Props = {
     handleNewPostModal: (username: string) => void
 }
 const SignUpModal: FC<Props> = ({handleNewPostModal, actions}) => {
-    const [newUser, setNewUser] = useState(userInputs)
+    const [newUser, setNewUser] = useState<User>(userInputs)
 
     const handleSignIn = () => {
-        // if(isValidInput(newUser)) {
-            // actions.handleCreateNewUser(newUser)
+        if(isValidInput(newUser)) {
+            actions.handleCreateNewUser(newUser)
             handleNewPostModal(newUser.username)
-        // } else {
-        //     return
-        // }
+        } else {
+            return
+        }
     }
 
     const updateStateValue = (inputType, value) => {

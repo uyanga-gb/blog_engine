@@ -19,8 +19,7 @@
     justify-content: space-between;
   }
 
-  .sign_in_button {
-    background: #003749;
+  .header_button {
     border: 1px solid;
     border-radius: 10px;
     text-align: center;
@@ -29,20 +28,21 @@
     color: #ffffff;
     font-weight: bold;
     height: 50px;
+  }
+  .header_button.sign_in_button {
+    background: #003749;
     width: 100px;
-    margin-right: 20px;
   }
 
-  .create_account_button {
+  .header_button.create_account_button {
     background: #00aeef;
-    border: 1px solid;
-    border-radius: 10px;
-    text-align: center;
-    line-height: 50px;
-    font-size: 16px;
-    color: #ffffff;
-    font-weight: bold;
-    height: 50px;
     width: 170px;
+    margin-right: 20px;
+  }
+  .header_button.new_post {
+    background-color: #ffffff;
+    color: black;
+    width: 170px;
+    margin-right: 20px;
   }
 }

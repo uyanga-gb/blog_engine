@@ -16,6 +16,7 @@ export const createNewUser = (newUser) => (dispatch, getState) => {
        body: JSON.stringify(newUser)
    })
     .then(response => {
+        console.log('new user data from db ', response)
       return response.status;
     })
     .then(status => {

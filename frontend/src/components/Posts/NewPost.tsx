@@ -3,12 +3,15 @@ import "./styles.scss"
 import {TextField} from "@rmwc/textfield";
 import {createNewPost} from "../../actions/post-action-creators";
 import {connect} from "react-redux";
+import { Post} from "../../types/types";
 
 type Props = {
     authorUserName: string
+    handleShowModal: () => void
 }
 
-const userInputs = {
+const userInputs: Post = {
+    authorEmail: "",
     title: "",
     content: ""
 }
@@ -21,19 +24,19 @@ function isValidInput(userInput) {
 export function mapDispatchToProps(dispatch) {
     return {
         actions: {
-            handleCreateNewUser(userInfo, post) {
-                dispatch(createNewPost(userInfo, post))
+            handleCreateNewPost(post) {
+                dispatch(createNewPost(post))
             }
         }
     }
 }
 
 const NewPost: FC<Props> = ({authorUserName, handleShowModal, actions}) => {
-    const [newPost, setNewPost] = useState(userInputs)
+    const [newPost, setNewPost] = useState<Post>(userInputs)
 
     const handlePublishPost = () => {
         if(isValidInput(newPost)) {
-            actions.handleCreateNewPost(authorUserName, newPost)
+            actions.handleCreateNewPost(newPost)
             handleShowModal()
         } else {
             return
@@ -43,7 +46,8 @@ const NewPost: FC<Props> = ({authorUserName, handleShowModal, actions}) => {
     const updateStateValue = (inputType, value) => {
         const updatedPost = {
             ...newPost,
-            [inputType]: value
+            [inputType]: value,
+            authorEmail: authorUserName
         }
         setNewPost(updatedPost)
     }
@@ -63,7 +67,7 @@ const NewPost: FC<Props> = ({authorUserName, handleShowModal, actions}) => {
                     outlined
                     className="post_title"
                     value={newPost.title}
-                    onChange={handleInputChange("lastname")}
+                    onChange={handleInputChange("title")}
                     id="post_title"
                     placeholder={"Your post title"}
                 />
@@ -73,7 +77,7 @@ const NewPost: FC<Props> = ({authorUserName, handleShowModal, actions}) => {
                     outlined
                     className="post_content"
                     value={newPost.content}
-                    onChange={handleInputChange("intro")}
+                    onChange={handleInputChange("content")}
                     id="post_content"
                     placeholder={"Post your content here."}
                 />
