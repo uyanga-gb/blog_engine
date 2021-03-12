@@ -1,7 +1,10 @@
 import {ADD_POST, ADD_POST_COMMENT, GET_POSTS} from "./action-types";
 
+// Not recommended for production environment to showing user credentials
+export const serverIpAddress = "10.213.187.198"
+
 export const getAllPosts = () => (dispatch) => {
-    fetch('http://localhost:3001/posts', {
+    fetch(`http://${serverIpAddress}:3001/posts`, {
         method: 'GET'
     })
         .then(response => {
@@ -17,7 +20,7 @@ export const getAllPosts = () => (dispatch) => {
         });
 }
 export const createNewPost = (newPost) => (dispatch, getState) => {
-    fetch(`http://localhost:3001/users/${newPost.authorEmail}`, {
+    fetch(`http://${serverIpAddress}:3001/users/${newPost.authorEmail}`, {
         method: 'GET'
     })
         .then(response => {
@@ -29,7 +32,7 @@ export const createNewPost = (newPost) => (dispatch, getState) => {
                     ...newPost,
                     authorId: res[0].id
                 }
-                fetch('http://localhost:3001/addPost', {
+                fetch(`http://${serverIpAddress}:3001/addPost`, {
                     method: 'POST',
                     headers: {
                         'content-type': 'application/json',
@@ -56,7 +59,7 @@ export const createNewPost = (newPost) => (dispatch, getState) => {
 
 export const createNewPostComment = (newPostComment) => (dispatch, getState) => {
 
-  fetch('http://localhost:3001/addPostComment', {
+  fetch(`http://${serverIpAddress}:3001/addPostComment`, {
     method: 'POST',
     headers: {
       'content-type': 'application/json',

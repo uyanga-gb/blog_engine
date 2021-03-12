@@ -4,7 +4,7 @@ const Pool = require('pg').Pool
 // The pool object allows to query into the database that it’s connected to.
 const pool = new Pool({
   user: 'postgres',
-  host: 'localhost',
+  host: '10.213.187.198',
   database: 'blog_engine_db',
   password: 'postgres',
   port: 5432,

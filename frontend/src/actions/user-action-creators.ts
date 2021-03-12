@@ -4,10 +4,12 @@ import {
   GET_POST
 } from "./action-types";
 
+// Not recommended for production environment to showing user credentials
+export const serverIpAddress = "10.213.187.198"
 
 export const createNewUser = (newUser) => (dispatch, getState) => {
 
-   fetch('http://localhost:3001/register', {
+   fetch(`http://${serverIpAddress}:3001/register`, {
        method: 'POST',
        headers: {
            'content-type': 'application/json',
@@ -31,7 +33,7 @@ export const createNewUser = (newUser) => (dispatch, getState) => {
   }
 
 export const loginUser = (user) => (dispatch, getState) => {
-    fetch('http://localhost:3001/userlogin', {
+    fetch(`http://${serverIpAddress}:3001/userlogin`, {
         method: 'POST',
         headers: {
             'content-type': 'application/json',
