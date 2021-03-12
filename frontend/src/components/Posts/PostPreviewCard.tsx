@@ -20,7 +20,7 @@ const PostPreviewCard: FC<Props> = ({authorName, authorAvatar, publishDate, titl
             <img src={defaultPostPreview} />
           </div>
           <div className="post_prev_body">
-            <h2>{title}</h2>
+            <h4>{title}</h4>
             <p className={cx(title.length > 34 && "two-line-title")}>{description}</p>
             <div className="post_prev_info">
               <img className="author_avator" src={defaultAvatar} />
